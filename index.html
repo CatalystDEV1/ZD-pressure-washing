@@ -6,6 +6,7 @@
     <title>ZD Pressure Washing | Central Coast Professional Pressure Washing Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --dark-blue: #0a2e5a;
@@ -244,16 +245,16 @@
         /* Hero Section - CRITICAL PADDING FIXES */
         .hero {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #0d3b77 100%);
-            min-height: 100vh; /* Changed from height to min-height */
+            min-height: 100vh;
             display: flex;
             align-items: center;
             text-align: center;
             color: var(--white);
-            padding-top: 140px; /* Increased top padding to prevent navbar overlap */
-            padding-bottom: 120px; /* Increased bottom padding for breathing room */
+            padding-top: 140px;
+            padding-bottom: 120px;
             position: relative;
             overflow: hidden;
-            box-sizing: border-box; /* Ensures padding is included in min-height calculation */
+            box-sizing: border-box;
         }
         
         .hero::before {
@@ -285,8 +286,8 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
-            padding-top: 20px; /* Added subtle top padding for content spacing */
-            padding-bottom: 30px; /* Added bottom padding to prevent cut-off */
+            padding-top: 20px;
+            padding-bottom: 30px;
         }
         
         .hero h1 {
@@ -295,7 +296,7 @@
             margin-bottom: 25px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             letter-spacing: -1px;
-            padding-top: 20px; /* Extra protection against cut-off */
+            padding-top: 20px;
         }
         
         .hero p {
@@ -343,17 +344,41 @@
             font-size: 1.3rem;
         }
         
-        /* Services Section - Added top margin for separation */
+        /* Services Carousel Section */
         .services-section {
             background-color: var(--white);
-            margin-top: 40px; /* Added separation from hero section */
+            margin-top: 40px;
         }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px;
+        /* Services Carousel Styles */
+        .services-carousel-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
             margin-top: 50px;
+        }
+        
+        .services-carousel {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            padding: 0 15px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+            transform: scale(1);
         }
         
         .service-card {
@@ -364,6 +389,8 @@
             transition: var(--transition);
             position: relative;
             border: 1px solid var(--light-gray);
+            flex: 1;
+            max-width: calc(50% - 17.5px);
         }
         
         .service-card:hover {
@@ -432,115 +459,77 @@
             transform: translateX(5px);
         }
         
-        /* Services Carousel Styles */
-.services-carousel-container {
-position: relative;
-max-width: 1200px;
-margin: 0 auto;
-overflow: hidden;
-margin-top: 50px;
-}
-.services-carousel {
-display: flex;
-transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-width: 100%;
-}
-.carousel-slide {
-min-width: 100%;
-padding: 0 15px;
-opacity: 0;
-transform: scale(0.95);
-transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.carousel-slide.active {
-opacity: 1;
-transform: scale(1);
-}
-.carousel-controls {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 25px;
-margin-top: 40px;
-}
-.carousel-btn {
-background: var(--white);
-color: var(--dark-blue);
-border: 2px solid var(--light-blue);
-width: 55px;
-height: 55px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.4rem;
-cursor: pointer;
-transition: var(--transition);
-box-shadow: var(--shadow);
-}
-.carousel-btn:hover {
-background: var(--light-blue);
-color: var(--white);
-transform: translateY(-3px);
-box-shadow: var(--shadow-hover);
-}
-.carousel-btn:disabled {
-opacity: 0.4;
-cursor: not-allowed;
-transform: none !important;
-}
-.carousel-indicators {
-display: flex;
-gap: 12px;
-}
-.indicator {
-width: 14px;
-height: 14px;
-border-radius: 50%;
-background: var(--light-gray);
-cursor: pointer;
-transition: var(--transition);
-border: 2px solid transparent;
-}
-.indicator.active {
-background: var(--light-blue);
-transform: scale(1.2);
-border-color: var(--white);
-box-shadow: 0 0 0 2px var(--light-blue);
-}
-.carousel-progress-bar {
-position: absolute;
-bottom: 20px;
-left: 50%;
-transform: translateX(-50%);
-width: 200px;
-height: 4px;
-background: rgba(255, 255, 255, 0.2);
-border-radius: 2px;
-overflow: hidden;
-}
-.progress-fill {
-height: 100%;
-width: 100%;
-background: var(--light-blue);
-border-radius: 2px;
-transition: width 0.3s linear;
-animation: progress 8s linear forwards;
-}
-@keyframes progress {
-from { width: 100%; }
-to { width: 0%; }
-}
-.carousel-slide p {
-margin-bottom: 15px;
-}
-.carousel-slide p strong {
-color: var(--dark-blue);
-font-weight: 700;
-display: block;
-margin-bottom: 10px;
-font-size: 1.2rem;
-}
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .carousel-btn {
+            background: var(--white);
+            color: var(--dark-blue);
+            border: 2px solid var(--light-blue);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .carousel-btn:hover {
+            background: var(--light-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .carousel-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .indicator.active {
+            background: var(--light-blue);
+            transform: scale(1.2);
+            border-color: var(--white);
+            box-shadow: 0 0 0 2px var(--light-blue);
+        }
+        
+        .carousel-slide p {
+            margin-bottom: 15px;
+        }
+        
+        .carousel-slide p strong {
+            color: var(--dark-blue);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
         /* About Section */
         .about-section {
             background-color: var(--off-white);
@@ -1123,9 +1112,9 @@ font-size: 1.2rem;
         @media (max-width: 768px) {
             /* CRITICAL MOBILE PADDING ADJUSTMENTS */
             .hero {
-                padding-top: 110px; /* Reduced but still substantial top padding */
-                padding-bottom: 90px; /* Reduced bottom padding for mobile */
-                min-height: auto; /* Allow content to determine height on mobile */
+                padding-top: 110px;
+                padding-bottom: 90px;
+                min-height: auto;
                 padding-left: 15px;
                 padding-right: 15px;
             }
@@ -1232,6 +1221,17 @@ font-size: 1.2rem;
             .services-section {
                 margin-top: 30px;
             }
+            
+            /* Mobile carousel - show 1 card per slide */
+            .carousel-slide {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .service-card {
+                max-width: 100%;
+                flex: none;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1333,7 +1333,7 @@ font-size: 1.2rem;
             </nav>
         </div>
     </header>
-
+    
     <!-- Hero Section - NOW WITH PROPER PADDING -->
     <section class="hero" id="home">
         <div class="container hero-content">
@@ -1359,112 +1359,118 @@ font-size: 1.2rem;
             </div>
         </div>
     </section>
-
-   <!-- Services Section - CAROUSEL VERSION -->
-<section class="section services-section" id="services">
-    <div class="container">
-        <div class="section-title">
-            <h2>Our Professional Services</h2>
-            <p>Premium pressure washing solutions for every surface and property type across the Central Coast</p>
-        </div>
-        
-        <div class="services-carousel-container">
-            <div class="services-carousel" id="services-carousel">
-                <!-- Service Card 1: Pressure Washing -->
-                <div class="service-card carousel-slide active">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1617142584117-2e7a6c7f0f9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Pressure Washing">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-water"></i>
+    
+    <!-- Services Section - WITH CAROUSEL -->
+    <section class="section services-section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Professional Services</h2>
+                <p>Premium pressure washing solutions for every surface and property type across the Central Coast</p>
+            </div>
+            
+            <div class="services-carousel-container">
+                <div class="services-carousel" id="services-carousel">
+                    <!-- Slide 1: Pressure Washing + Driveway Sealing -->
+                    <div class="carousel-slide active">
+                        <!-- Service Card 1: Pressure Washing -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1617142584117-2e7a6c7f0f9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Pressure Washing">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-water"></i>
+                                </div>
+                                <h3>Pressure Washing</h3>
+                                <p><strong>Restore your property's curb appeal instantly!</strong> Our high-powered pressure washing removes years of dirt, grime, mold, and algae from driveways, paths, walls, and more. See dramatic results in just hours with our professional-grade equipment and expert techniques.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Removes stubborn stains & buildup<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents surface deterioration<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Increases property value
+                                </p>
+                                <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <h3>Pressure Washing</h3>
-                        <p><strong>Restore your property's curb appeal instantly!</strong> Our high-powered pressure washing removes years of dirt, grime, mold, and algae from driveways, paths, walls, and more. See dramatic results in just hours with our professional-grade equipment and expert techniques.</p>
-                        <p>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Removes stubborn stains & buildup<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents surface deterioration<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Increases property value
-                        </p>
-                        <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                        
+                        <!-- Service Card 2: Driveway Sealing -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1589968724136-5c7c7f5c3a01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Driveway Sealing">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3>Driveway Sealing</h3>
+                                <p><strong>Protect your investment for years to come!</strong> After pressure cleaning, our premium sealant creates an invisible protective barrier that repels oil, stains, water, and UV damage. Keep your driveway looking new and save thousands on future repairs with our long-lasting sealing solutions.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> 3-5 year protection guarantee<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents cracking & fading<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Enhances surface appearance
+                                </p>
+                                <a href="#contact" class="service-link">Protect My Driveway <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2: Gutter Cleans + Soft Wash -->
+                    <div class="carousel-slide">
+                        <!-- Service Card 3: Gutter Cleans -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1600857345488-8a88e26a2f98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Gutter Cleaning">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <h3>Gutter Cleans</h3>
+                                <p><strong>Prevent costly water damage before it happens!</strong> Clogged gutters can cause roof leaks, foundation damage, and pest infestations. Our thorough gutter cleaning service removes all debris, checks downpipes, and ensures proper water flow to protect your home from expensive water-related repairs.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents roof & foundation damage<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Reduces pest nesting risks<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Extends gutter lifespan
+                                </p>
+                                <a href="#contact" class="service-link">Clean My Gutters <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Service Card 4: Soft Wash -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1617142584909-2f7f2662e5e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Soft Wash">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-spa"></i>
+                                </div>
+                                <h3>Soft Wash</h3>
+                                <p><strong>Gentle yet powerful cleaning for delicate surfaces!</strong> Perfect for house exteriors, roofs, and painted surfaces. Our soft wash system uses low pressure and specialized eco-friendly solutions to safely remove mold, mildew, and algae without damaging weatherboards, render, or roofing materials.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Safe for all exterior surfaces<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Kills mold & mildew at the root<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Results last 3-5x longer than pressure washing
+                                </p>
+                                <a href="#contact" class="service-link">Revitalize My Home <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Service Card 2: Driveway Sealing -->
-                <div class="service-card carousel-slide">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1589968724136-5c7c7f5c3a01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Driveway Sealing">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Driveway Sealing</h3>
-                        <p><strong>Protect your investment for years to come!</strong> After pressure cleaning, our premium sealant creates an invisible protective barrier that repels oil, stains, water, and UV damage. Keep your driveway looking new and save thousands on future repairs with our long-lasting sealing solutions.</p>
-                        <p>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> 3-5 year protection guarantee<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents cracking & fading<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Enhances surface appearance
-                        </p>
-                        <a href="#contact" class="service-link">Protect My Driveway <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Service Card 3: Gutter Cleans -->
-                <div class="service-card carousel-slide">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1600857345488-8a88e26a2f98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Gutter Cleaning">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-tint"></i>
-                        </div>
-                        <h3>Gutter Cleans</h3>
-                        <p><strong>Prevent costly water damage before it happens!</strong> Clogged gutters can cause roof leaks, foundation damage, and pest infestations. Our thorough gutter cleaning service removes all debris, checks downpipes, and ensures proper water flow to protect your home from expensive water-related repairs.</p>
-                        <p>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents roof & foundation damage<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Reduces pest nesting risks<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Extends gutter lifespan
-                        </p>
-                        <a href="#contact" class="service-link">Clean My Gutters <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Service Card 4: Soft Wash -->
-                <div class="service-card carousel-slide">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1617142584909-2f7f2662e5e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Soft Wash">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <h3>Soft Wash</h3>
-                        <p><strong>Gentle yet powerful cleaning for delicate surfaces!</strong> Perfect for house exteriors, roofs, and painted surfaces. Our soft wash system uses low pressure and specialized eco-friendly solutions to safely remove mold, mildew, and algae without damaging weatherboards, render, or roofing materials.</p>
-                        <p>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Safe for all exterior surfaces<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Kills mold & mildew at the root<br>
-                            <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Results last 3-5x longer than pressure washing
-                        </p>
-                        <a href="#contact" class="service-link">Revitalize My Home <i class="fas fa-arrow-right"></i></a>
-                    </div>
+                
+                <!-- Carousel Controls -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn" id="prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-indicators" id="carousel-indicators"></div>
+                    <button class="carousel-btn next-btn" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Carousel Controls -->
-            <div class="carousel-controls">
-                <button class="carousel-btn prev-btn" id="prev-btn">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-indicators" id="carousel-indicators"></div>
-                <button class="carousel-btn next-btn" id="next-btn">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
         </div>
-    </div>
-</section>
-
+    </section>
+    
     <!-- About Section -->
     <section class="section about-section" id="about">
         <div class="container">
@@ -1477,7 +1483,6 @@ font-size: 1.2rem;
                     <p>Based in the heart of the Central Coast, ZD Pressure Washing has been the trusted choice for residential and commercial property cleaning since 2015. We pride ourselves on delivering exceptional results with eco-friendly cleaning solutions and state-of-the-art equipment.</p>
                     <p>Our fully insured, experienced technicians are dedicated to transforming the appearance of your property while ensuring the safety of your surfaces, plants, and pets. We don't consider the job done until you're completely satisfied with the results.</p>
                     <p>As a locally owned and operated business, we understand the unique challenges Central Coast properties face from coastal weather, humidity, and environmental factors. We tailor our approach to deliver the perfect clean for your specific needs.</p>
-                    
                     <div class="about-stats">
                         <div class="stat-item">
                             <div class="stat-number">650+</div>
@@ -1500,7 +1505,7 @@ font-size: 1.2rem;
             </div>
         </div>
     </section>
-
+    
     <!-- Process Section -->
     <section class="section process-section" id="process">
         <div class="container">
@@ -1540,7 +1545,7 @@ font-size: 1.2rem;
             </div>
         </div>
     </section>
-
+    
     <!-- Testimonials Section -->
     <section class="section testimonials-section" id="testimonials">
         <div class="container">
@@ -1588,7 +1593,7 @@ font-size: 1.2rem;
             </div>
         </div>
     </section>
-
+    
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container cta-content">
@@ -1597,7 +1602,7 @@ font-size: 1.2rem;
             <a href="#contact" class="btn">Request Free Quote</a>
         </div>
     </section>
-
+    
     <!-- Contact Section -->
     <section class="section" id="contact">
         <div class="container">
@@ -1694,7 +1699,7 @@ font-size: 1.2rem;
             </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1748,7 +1753,7 @@ font-size: 1.2rem;
             </div>
         </div>
     </footer>
-
+    
     <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -1756,8 +1761,8 @@ font-size: 1.2rem;
         
         mobileMenuBtn.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
                 : '<i class="fas fa-bars"></i>';
         });
         
@@ -1785,7 +1790,6 @@ font-size: 1.2rem;
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if(targetId === '#') return;
-                
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
@@ -1806,110 +1810,97 @@ font-size: 1.2rem;
             });
         }
         
+        // Services Carousel Functionality
+        class ServicesCarousel {
+            constructor() {
+                this.carousel = document.getElementById('services-carousel');
+                this.slides = document.querySelectorAll('.carousel-slide');
+                this.prevBtn = document.getElementById('prev-btn');
+                this.nextBtn = document.getElementById('next-btn');
+                this.currentIndex = 0;
+                this.totalSlides = this.slides.length;
+                this.autoPlayInterval = null;
+                this.init();
+            }
+            
+            init() {
+                // Create indicators
+                const indicatorsContainer = document.getElementById('carousel-indicators');
+                for (let i = 0; i < this.totalSlides; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'indicator';
+                    if (i === 0) indicator.classList.add('active');
+                    indicator.addEventListener('click', () => this.goToSlide(i));
+                    indicatorsContainer.appendChild(indicator);
+                }
+                this.indicators = document.querySelectorAll('.indicator');
+                
+                // Event listeners
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Auto-play
+                this.startAutoPlay();
+                
+                // Pause auto-play on hover
+                this.carousel.parentElement.addEventListener('mouseenter', () => this.pauseAutoPlay());
+                this.carousel.parentElement.addEventListener('mouseleave', () => this.startAutoPlay());
+            }
+            
+            updateCarousel() {
+                // Update slides
+                this.slides.forEach((slide, index) => {
+                    slide.classList.toggle('active', index === this.currentIndex);
+                });
+                
+                // Update indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+            
+            nextSlide() {
+                this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+                this.updateCarousel();
+                this.resetAutoPlay();
+            }
+            
+            prevSlide() {
+                this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+                this.updateCarousel();
+                this.resetAutoPlay();
+            }
+            
+            goToSlide(index) {
+                this.currentIndex = index;
+                this.updateCarousel();
+                this.resetAutoPlay();
+            }
+            
+            startAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 8000); // Change slide every 8 seconds
+            }
+            
+            pauseAutoPlay() {
+                clearInterval(this.autoPlayInterval);
+            }
+            
+            resetAutoPlay() {
+                this.pauseAutoPlay();
+                this.startAutoPlay();
+            }
+        }
+        
+        // Initialize carousel when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ServicesCarousel();
+        });
+        
         // Initialize header state
         if(window.scrollY > 100) {
             document.querySelector('header').classList.add('scrolled');
-
-        // Services Carousel Functionality
-class ServicesCarousel {
-constructor() {
-this.carousel = document.getElementById('services-carousel');
-this.slides = document.querySelectorAll('.carousel-slide');
-this.prevBtn = document.getElementById('prev-btn');
-this.nextBtn = document.getElementById('next-btn');
-this.currentIndex = 0;
-this.totalSlides = this.slides.length;
-this.autoPlayInterval = null;
-this.progressInterval = null;
-this.init();
-}
-
-init() {
-// Create indicators
-const indicatorsContainer = document.getElementById('carousel-indicators');
-for (let i = 0; i < this.totalSlides; i++) {
-const indicator = document.createElement('div');
-indicator.className = 'indicator';
-if (i === 0) indicator.classList.add('active');
-indicator.addEventListener('click', () => this.goToSlide(i));
-indicatorsContainer.appendChild(indicator);
-}
-this.indicators = document.querySelectorAll('.indicator');
-
-// Event listeners
-this.prevBtn.addEventListener('click', () => this.prevSlide());
-this.nextBtn.addEventListener('click', () => this.nextSlide());
-
-// Auto-play
-this.startAutoPlay();
-
-// Pause auto-play on hover
-this.carousel.parentElement.addEventListener('mouseenter', () => this.pauseAutoPlay());
-this.carousel.parentElement.addEventListener('mouseleave', () => this.startAutoPlay());
-}
-
-updateCarousel() {
-// Update slides
-this.slides.forEach((slide, index) => {
-slide.classList.toggle('active', index === this.currentIndex);
-});
-
-// Update indicators
-this.indicators.forEach((indicator, index) => {
-indicator.classList.toggle('active', index === this.currentIndex);
-});
-
-// Update transform
-this.carousel.style.transform = `translateX(-${this.currentIndex * 100}%)`;
-
-// Reset and restart progress animation
-const progressBar = document.querySelector('.progress-fill');
-if (progressBar) {
-progressBar.style.animation = 'none';
-setTimeout(() => {
-progressBar.style.animation = 'progress 8s linear forwards';
-}, 10);
-}
-}
-
-nextSlide() {
-this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
-this.updateCarousel();
-this.resetAutoPlay();
-}
-
-prevSlide() {
-this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
-this.updateCarousel();
-this.resetAutoPlay();
-}
-
-goToSlide(index) {
-this.currentIndex = index;
-this.updateCarousel();
-this.resetAutoPlay();
-}
-
-startAutoPlay() {
-this.autoPlayInterval = setInterval(() => {
-this.nextSlide();
-}, 8000); // Change slide every 8 seconds
-}
-
-pauseAutoPlay() {
-clearInterval(this.autoPlayInterval);
-}
-
-resetAutoPlay() {
-this.pauseAutoPlay();
-this.startAutoPlay();
-}
-}
-
-// Initialize carousel when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-new ServicesCarousel();
-});
         }
     </script>
 </body>
