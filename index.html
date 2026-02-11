@@ -158,7 +158,7 @@
             margin-top: 15px;
         }
         
-        /* Header Styles */
+        /* Header Styles - FIXED FOR SINGLE LINE */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: var(--shadow);
@@ -180,6 +180,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: nowrap; /* Prevent wrapping to second line */
         }
         
         .logo {
@@ -189,6 +190,7 @@
             font-size: 1.9rem;
             font-weight: 700;
             color: var(--dark-blue);
+            white-space: nowrap; /* Prevent logo text from wrapping */
         }
         
         .logo-icon {
@@ -200,10 +202,13 @@
         nav ul {
             display: flex;
             list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 28px; /* Reduced gap for better spacing */
         }
         
         nav ul li {
-            margin-left: 32px;
+            margin: 0; /* Removed margin to prevent overflow */
         }
         
         nav ul li a {
@@ -212,6 +217,7 @@
             font-size: 1.05rem;
             position: relative;
             padding: 5px 0;
+            white-space: nowrap; /* Prevent nav items from wrapping */
         }
         
         nav ul li a::after {
@@ -241,7 +247,7 @@
             z-index: 2000;
         }
         
-        /* Hero Section - CRITICAL PADDING FIXES */
+        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #0d3b77 100%);
             min-height: 100vh;
@@ -343,17 +349,34 @@
             font-size: 1.3rem;
         }
         
-        /* Services Section - Added top margin for separation */
+        /* Services Section - WITH CAROUSEL */
         .services-section {
             background-color: var(--white);
             margin-top: 40px;
         }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px;
+        /* Services Carousel Styles - FIXED */
+        .services-carousel-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
             margin-top: 50px;
+        }
+        
+        .services-carousel {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 200%; /* 2 slides = 200% width */
+            will-change: transform;
+        }
+        
+        .carousel-slide {
+            min-width: 50%; /* Each slide takes 50% of carousel width */
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            padding: 0 15px;
         }
         
         .service-card {
@@ -364,6 +387,8 @@
             transition: var(--transition);
             position: relative;
             border: 1px solid var(--light-gray);
+            flex: 1;
+            max-width: calc(50% - 17.5px);
         }
         
         .service-card:hover {
@@ -430,6 +455,59 @@
         
         .service-link:hover i {
             transform: translateX(5px);
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .carousel-btn {
+            background: var(--white);
+            color: var(--dark-blue);
+            border: 2px solid var(--light-blue);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .carousel-btn:hover {
+            background: var(--light-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .indicator.active {
+            background: var(--light-blue);
+            transform: scale(1.2);
+            border-color: var(--white);
+            box-shadow: 0 0 0 2px var(--light-blue);
         }
         
         /* About Section */
@@ -503,17 +581,24 @@
             box-shadow: var(--shadow-hover);
             position: relative;
             height: 450px;
+            background: var(--light-gray); /* Placeholder background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 20px;
         }
         
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .about-image:hover img {
-            transform: scale(1.05);
+        .about-image::before {
+            content: 'Image placeholder for Pristine Pressure Washing team photo';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 20px;
         }
         
         /* Process Section */
@@ -1012,7 +1097,6 @@
         }
         
         @media (max-width: 768px) {
-            /* CRITICAL MOBILE PADDING ADJUSTMENTS */
             .hero {
                 padding-top: 110px;
                 padding-bottom: 90px;
@@ -1119,9 +1203,24 @@
                 height: 380px;
             }
             
-            /* Add margin to services section on mobile */
             .services-section {
                 margin-top: 30px;
+            }
+            
+            /* Mobile carousel - show 1 card per slide */
+            .services-carousel {
+                width: 100%;
+            }
+            
+            .carousel-slide {
+                min-width: 100%;
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .service-card {
+                max-width: 100%;
+                flex: none;
             }
         }
         
@@ -1188,7 +1287,6 @@
                 padding: 25px 15px;
             }
             
-            /* Additional mobile padding protection */
             .hero {
                 padding-top: 95px;
                 padding-bottom: 75px;
@@ -1202,7 +1300,7 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Header Section - FIXED FOR SINGLE LINE NAVIGATION -->
     <header>
         <div class="container header-container">
             <a href="#" class="logo">
@@ -1225,7 +1323,7 @@
         </div>
     </header>
     
-    <!-- Hero Section - NOW WITH PROPER PADDING -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container hero-content">
             <h1>Pristine Pressure Washing on the Central Coast</h1>
@@ -1251,89 +1349,153 @@
         </div>
     </section>
     
-    <!-- Services Section - WITH TOP MARGIN -->
+    <!-- Services Section - WITH CAROUSEL -->
     <section class="section services-section" id="services">
         <div class="container">
             <div class="section-title">
                 <h2>Our Professional Services</h2>
                 <p>Premium pressure washing solutions for every surface and property type across the Central Coast</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1589968724136-5c7c7f5c3a01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Driveway Cleans">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-road"></i>
+            
+            <div class="services-carousel-container">
+                <div class="services-carousel" id="services-carousel">
+                    <!-- Slide 1: Driveway Cleans + Roof Cleans -->
+                    <div class="carousel-slide">
+                        <!-- Service Card 1: Driveway Cleans -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1589968724136-5c7c7f5c3a01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Driveway Cleans">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-road"></i>
+                                </div>
+                                <h3>Driveway Cleans</h3>
+                                <p><strong>Eliminate stubborn oil stains, moss, algae, and years of built-up grime!</strong> Our professional cleaning restores safety and visual appeal to concrete, pavers, and asphalt surfaces. See dramatic results in just hours with our high-powered equipment.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Removes stubborn stains & buildup<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents surface deterioration<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Increases property value
+                                </p>
+                                <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <h3>Driveway Cleans</h3>
-                        <p>Eliminate stubborn oil stains, moss, algae, and years of built-up grime from concrete, pavers, and asphalt surfaces. Restore safety and visual appeal to your property with our professional cleaning solutions.</p>
-                        <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                        
+                        <!-- Service Card 2: Roof Cleans -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1617142584909-2f7f2662e5e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Roof Cleans">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h3>Roof Cleans</h3>
+                                <p><strong>Safely remove moss, lichen, and algae without causing damage!</strong> Our professional roof cleaning extends the life of your roof, improves appearance, and prevents water damage from blocked gutters. We use gentle yet effective methods to protect your investment.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents roof deterioration<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Improves curb appeal<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Extends roof lifespan
+                                </p>
+                                <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2: Soft Washing + Gutter Cleans -->
+                    <div class="carousel-slide">
+                        <!-- Service Card 3: Soft Washing -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1617142584117-2e7a6c7f0f9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Soft Washing">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-spa"></i>
+                                </div>
+                                <h3>Soft Washing</h3>
+                                <p><strong>Gentle yet powerful cleaning for delicate surfaces!</strong> Perfect for house exteriors, roofs, and painted surfaces. Our soft wash system uses low pressure and specialized eco-friendly solutions to safely remove mold, mildew, and algae without damaging weatherboards, render, or roofing materials.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Safe for all exterior surfaces<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Kills mold & mildew at the root<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Results last 3-5x longer
+                                </p>
+                                <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Service Card 4: Gutter Cleans -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1600857345488-8a88e26a2f98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Gutter Cleans">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <h3>Gutter Cleans</h3>
+                                <p><strong>Prevent costly water damage before it happens!</strong> Clogged gutters can cause roof leaks, foundation damage, and pest infestations. Our thorough gutter cleaning service removes all debris, checks downpipes, and ensures proper water flow to protect your home from expensive water-related repairs.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Prevents roof & foundation damage<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Reduces pest nesting risks<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Extends gutter lifespan
+                                </p>
+                                <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3: Window Cleans -->
+                    <div class="carousel-slide">
+                        <!-- Service Card 5: Window Cleans -->
+                        <div class="service-card">
+                            <div class="service-img">
+                                <img src="https://images.unsplash.com/photo-1560448204-8cf87f3c39c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Window Cleans">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="fas fa-window-maximize"></i>
+                                </div>
+                                <h3>Window Cleans</h3>
+                                <p><strong>Restore clarity and brilliance to your windows!</strong> We remove dirt, grime, water spots, and mineral deposits to give your home a fresh, sparkling appearance that enhances natural light and improves your view. Professional cleaning for all window types and heights.</p>
+                                <p>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Streak-free finish guaranteed<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Safe for all glass types<br>
+                                    <i class="fas fa-check-circle" style="color: var(--light-blue); margin-right: 8px;"></i> Includes frames and sills
+                                </p>
+                                <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- Empty card for spacing on desktop, will be hidden on mobile -->
+                        <div class="service-card" style="opacity: 0; pointer-events: none; border: none; box-shadow: none;"></div>
                     </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1617142584909-2f7f2662e5e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Roof Cleans">
+                
+                <!-- Carousel Controls -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn" id="prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-indicators" id="carousel-indicators">
+                        <span class="indicator active" data-slide="0"></span>
+                        <span class="indicator" data-slide="1"></span>
+                        <span class="indicator" data-slide="2"></span>
                     </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h3>Roof Cleans</h3>
-                        <p>Safely remove moss, lichen, and algae from your roof without causing damage. Our professional cleaning extends the life of your roof, improves appearance, and prevents water damage from blocked gutters.</p>
-                        <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1617142584117-2e7a6c7f0f9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Soft Washing">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <h3>Soft Washing</h3>
-                        <p>Gentle yet powerful cleaning for delicate surfaces! Perfect for house exteriors, roofs, and painted surfaces. Our soft wash system uses low pressure and specialized eco-friendly solutions to safely remove mold, mildew, and algae without damaging weatherboards, render, or roofing materials.</p>
-                        <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1600857345488-8a88e26a2f98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Gutter Cleans">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-tint"></i>
-                        </div>
-                        <h3>Gutter Cleans</h3>
-                        <p>Prevent costly water damage before it happens! Clogged gutters can cause roof leaks, foundation damage, and pest infestations. Our thorough gutter cleaning service removes all debris, checks downpipes, and ensures proper water flow to protect your home from expensive water-related repairs.</p>
-                        <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1560448204-8cf87f3c39c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Window Cleans">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-window-maximize"></i>
-                        </div>
-                        <h3>Window Cleans</h3>
-                        <p>Restore clarity and brilliance to your windows with our professional cleaning service. We remove dirt, grime, water spots, and mineral deposits to give your home a fresh, sparkling appearance that enhances natural light and improves your view.</p>
-                        <a href="#contact" class="service-link">Get Instant Quote <i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <button class="carousel-btn next-btn" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- About Section -->
+    <!-- About Section - IMAGE REMOVED, PLACEHOLDER KEPT -->
     <section class="section about-section" id="about">
         <div class="container">
             <div class="about-container">
                 <div class="about-image">
-                    <img src="https://i.imgur.com/3J6cF1x.jpg" alt="Pristine Pressure Washing Team">
+                    <!-- Image placeholder - replace with actual image path when available -->
+                    <!-- <img src="path-to-team-photo.jpg" alt="Pristine Pressure Washing Team - Dane and crew"> -->
                 </div>
                 <div class="about-text">
                     <h2>About Pristine Pressure Washing</h2>
@@ -1666,6 +1828,65 @@
                 bookingForm.reset();
             });
         }
+        
+        // Services Carousel Functionality - WORKING CAROUSEL
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('services-carousel');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentSlide = 0;
+            let autoPlayInterval;
+            
+            function goToSlide(index) {
+                currentSlide = index;
+                carousel.style.transform = `translateX(-${currentSlide * 50}%)`; // 50% per slide
+                
+                // Update indicators
+                indicators.forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === currentSlide);
+                });
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                goToSlide(currentSlide);
+            }
+            
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                goToSlide(currentSlide);
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            indicators.forEach(indicator => {
+                indicator.addEventListener('click', () => {
+                    const slideIndex = parseInt(indicator.dataset.slide);
+                    goToSlide(slideIndex);
+                });
+            });
+            
+            // Auto-play
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlide, 8000);
+            }
+            
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+            
+            // Pause on hover
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+            
+            // Initialize
+            goToSlide(0);
+            startAutoPlay();
+        });
         
         // Initialize header state
         if(window.scrollY > 100) {
