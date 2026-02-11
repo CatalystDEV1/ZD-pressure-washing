@@ -242,7 +242,7 @@
             z-index: 2000;
         }
         
-        /* Hero Section - CRITICAL PADDING FIXES */
+        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #0d3b77 100%);
             min-height: 100vh;
@@ -350,7 +350,7 @@
             margin-top: 40px;
         }
         
-        /* Services Carousel Styles */
+        /* Services Carousel Styles - FIXED */
         .services-carousel-container {
             position: relative;
             max-width: 1200px;
@@ -372,12 +372,14 @@
             gap: 35px;
             padding: 0 15px;
             opacity: 0;
+            visibility: hidden;
             transform: scale(0.95);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
         }
         
         .carousel-slide.active {
             opacity: 1;
+            visibility: visible;
             transform: scale(1);
         }
         
@@ -1110,7 +1112,6 @@
         }
         
         @media (max-width: 768px) {
-            /* CRITICAL MOBILE PADDING ADJUSTMENTS */
             .hero {
                 padding-top: 110px;
                 padding-bottom: 90px;
@@ -1217,7 +1218,6 @@
                 height: 380px;
             }
             
-            /* Add margin to services section on mobile */
             .services-section {
                 margin-top: 30px;
             }
@@ -1297,7 +1297,6 @@
                 padding: 25px 15px;
             }
             
-            /* Additional mobile padding protection */
             .hero {
                 padding-top: 95px;
                 padding-bottom: 75px;
@@ -1334,7 +1333,7 @@
         </div>
     </header>
     
-    <!-- Hero Section - NOW WITH PROPER PADDING -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container hero-content">
             <h1>Professional Pressure Washing Services on the Central Coast</h1>
@@ -1360,7 +1359,7 @@
         </div>
     </section>
     
-    <!-- Services Section - WITH CAROUSEL -->
+    <!-- Services Section - WITH WORKING CAROUSEL -->
     <section class="section services-section" id="services">
         <div class="container">
             <div class="section-title">
@@ -1810,7 +1809,7 @@
             });
         }
         
-        // Services Carousel Functionality
+        // Services Carousel Functionality - FIXED
         class ServicesCarousel {
             constructor() {
                 this.carousel = document.getElementById('services-carousel');
@@ -1830,6 +1829,7 @@
                     const indicator = document.createElement('div');
                     indicator.className = 'indicator';
                     if (i === 0) indicator.classList.add('active');
+                    indicator.dataset.index = i;
                     indicator.addEventListener('click', () => this.goToSlide(i));
                     indicatorsContainer.appendChild(indicator);
                 }
@@ -1850,12 +1850,20 @@
             updateCarousel() {
                 // Update slides
                 this.slides.forEach((slide, index) => {
-                    slide.classList.toggle('active', index === this.currentIndex);
+                    if (index === this.currentIndex) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
                 });
                 
                 // Update indicators
                 this.indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === this.currentIndex);
+                    if (index === this.currentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
                 });
             }
             
@@ -1884,7 +1892,9 @@
             }
             
             pauseAutoPlay() {
-                clearInterval(this.autoPlayInterval);
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                }
             }
             
             resetAutoPlay() {
