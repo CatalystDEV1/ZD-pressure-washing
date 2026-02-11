@@ -241,17 +241,19 @@
             z-index: 2000;
         }
         
-        /* Hero Section */
+        /* Hero Section - CRITICAL PADDING FIXES */
         .hero {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #0d3b77 100%);
-            height: 100vh;
+            min-height: 100vh; /* Changed from height to min-height */
             display: flex;
             align-items: center;
             text-align: center;
             color: var(--white);
-            padding-top: 80px;
+            padding-top: 140px; /* Increased top padding to prevent navbar overlap */
+            padding-bottom: 120px; /* Increased bottom padding for breathing room */
             position: relative;
             overflow: hidden;
+            box-sizing: border-box; /* Ensures padding is included in min-height calculation */
         }
         
         .hero::before {
@@ -281,9 +283,10 @@
         .hero-content {
             max-width: 850px;
             margin: 0 auto;
-            padding-top: 60px;
             position: relative;
             z-index: 1;
+            padding-top: 20px; /* Added subtle top padding for content spacing */
+            padding-bottom: 30px; /* Added bottom padding to prevent cut-off */
         }
         
         .hero h1 {
@@ -292,6 +295,7 @@
             margin-bottom: 25px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             letter-spacing: -1px;
+            padding-top: 20px; /* Extra protection against cut-off */
         }
         
         .hero p {
@@ -339,9 +343,10 @@
             font-size: 1.3rem;
         }
         
-        /* Services Section */
+        /* Services Section - Added top margin for separation */
         .services-section {
             background-color: var(--white);
+            margin-top: 40px; /* Added separation from hero section */
         }
         
         .services-grid {
@@ -1007,6 +1012,29 @@
         }
         
         @media (max-width: 768px) {
+            /* CRITICAL MOBILE PADDING ADJUSTMENTS */
+            .hero {
+                padding-top: 110px; /* Reduced but still substantial top padding */
+                padding-bottom: 90px; /* Reduced bottom padding for mobile */
+                min-height: auto; /* Allow content to determine height on mobile */
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            
+            .hero-content {
+                padding-top: 15px;
+                padding-bottom: 25px;
+            }
+            
+            .hero h1 {
+                font-size: 2.9rem;
+                padding-top: 15px;
+            }
+            
+            .hero p {
+                font-size: 1.25rem;
+            }
+            
             .mobile-menu-btn {
                 display: block;
             }
@@ -1039,14 +1067,6 @@
                 font-size: 1.4rem;
                 font-weight: 600;
                 color: var(--dark-blue);
-            }
-            
-            .hero h1 {
-                font-size: 2.9rem;
-            }
-            
-            .hero p {
-                font-size: 1.25rem;
             }
             
             .hero-buttons {
@@ -1097,6 +1117,11 @@
             
             .about-image {
                 height: 380px;
+            }
+            
+            /* Add margin to services section on mobile */
+            .services-section {
+                margin-top: 30px;
             }
         }
         
@@ -1162,6 +1187,17 @@
                 font-size: 0.95rem;
                 padding: 25px 15px;
             }
+            
+            /* Additional mobile padding protection */
+            .hero {
+                padding-top: 95px;
+                padding-bottom: 75px;
+            }
+            
+            .hero h1 {
+                font-size: 2.4rem;
+                line-height: 1.2;
+            }
         }
     </style>
 </head>
@@ -1189,7 +1225,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - NOW WITH PROPER PADDING -->
     <section class="hero" id="home">
         <div class="container hero-content">
             <h1>Professional Pressure Washing Services on the Central Coast</h1>
@@ -1215,7 +1251,7 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services Section - WITH TOP MARGIN -->
     <section class="section services-section" id="services">
         <div class="container">
             <div class="section-title">
